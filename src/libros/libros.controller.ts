@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { LibrosService } from './libros.service';
 import { CreateLibroDto } from './dto/create-libro.dto';
@@ -22,8 +23,8 @@ export class LibrosController {
   }
 
   @Get()
-  findAll() {
-    return this.libroService.findAll();
+  findAll(@Query('categoria') categoria?: string) {
+    return this.libroService.findAll(categoria);
   }
 
   @Get(':id')

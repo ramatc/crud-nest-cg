@@ -46,8 +46,16 @@ export class LibrosService {
     return this.libroRepository.save(newLibro);
   }
 
-  findAll() {
-    return this.libroRepository.find();
+  findAll(categoria?: string) {
+    const where: any = {};
+
+    if (categoria) {
+      where.categoriaLiteraria = categoria;
+    }
+
+    return this.libroRepository.find({
+      where,
+    });
   }
 
   async findOne(id: number) {

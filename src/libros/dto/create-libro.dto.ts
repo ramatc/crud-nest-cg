@@ -7,10 +7,10 @@ import {
   IsDateString,
   ArrayNotEmpty,
 } from 'class-validator';
+import { transformDate } from 'src/helpers/transformDate';
 
 export class CreateLibroDto {
   @IsArray()
-  @IsNotEmpty()
   @ArrayNotEmpty()
   autoresIds: number[];
 
@@ -30,12 +30,10 @@ export class CreateLibroDto {
   @IsNotEmpty()
   precio: number;
 
-  @Transform(({ value }) => new Date(value).toISOString(), {
-    toClassOnly: true,
-  })
+  @Transform(({ value }) => transformDate(value), { toClassOnly: true })
   @IsDateString()
   @IsNotEmpty()
-  fechaLanzamiento: Date;
+  fechaLanzamiento: string;
 
   @IsString()
   @IsNotEmpty()
