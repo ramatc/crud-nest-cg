@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Autor } from 'src/typeorm/entities/autor.entity';
+import { Autor } from '../../typeorm/entities/autor.entity';
 import { CreateAutorDto } from '../dto/create-autor.dto';
 import { UpdateAutorDto } from '../dto/update-autor.dto';
 
