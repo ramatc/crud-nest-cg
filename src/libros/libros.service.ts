@@ -46,16 +46,29 @@ export class LibrosService {
     return this.libroRepository.save(newLibro);
   }
 
-  findAll(categoria?: string) {
+  async findAll(query) {
     const where: any = {};
 
-    if (categoria) {
-      where.categoriaLiteraria = categoria;
+    if (query?.categoria) {
+      where.categoriaLiteraria = query.categoria;
     }
 
-    return this.libroRepository.find({
+    const take = query.take || 5;
+    const currentPage = query?.page || 1;
+    const skip = take * (currentPage - 1);
+
+    const [result, total] = await this.libroRepository.findAndCount({
       where,
+      take,
+      skip,
     });
+
+    return {
+      data: result,
+      count: total,
+      currentPage,
+      totalPages: Math.ceil(total / take),
+    };
   }
 
   async findOne(id: number) {

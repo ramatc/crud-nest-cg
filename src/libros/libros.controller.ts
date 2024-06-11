@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Query,
 } from '@nestjs/common';
+import { Query as ExpressQueery } from 'express-serve-static-core';
 import { LibrosService } from './libros.service';
 import { CreateLibroDto } from './dto/create-libro.dto';
 import { UpdateLibroDto } from './dto/update-libro.dto';
@@ -23,8 +24,8 @@ export class LibrosController {
   }
 
   @Get()
-  findAll(@Query('categoria') categoria?: string) {
-    return this.libroService.findAll(categoria);
+  findAll(@Query() query?: ExpressQueery) {
+    return this.libroService.findAll(query);
   }
 
   @Get(':id')
