@@ -11,7 +11,9 @@ import {
 import { EditorialesService } from './editoriales.service';
 import { CreateEditorialDto } from './dto/create-editorial.dto';
 import { UpdateEditorialDto } from './dto/update-editorial.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('editoriales')
 @Controller('editoriales')
 export class EditorialesController {
   constructor(private readonly editorialesService: EditorialesService) {}

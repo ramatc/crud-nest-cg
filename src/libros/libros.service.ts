@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Libro } from 'src/typeorm/entities/libro.entity';
@@ -121,7 +121,12 @@ export class LibrosService {
 
     const updatedLibro = { ...libro, ...libroData };
 
-    return this.libroRepository.save(updatedLibro);
+    this.libroRepository.save(updatedLibro);
+
+    return {
+      message: `El libro #${id} ha sido actualizado exitosamente`,
+      statusCode: HttpStatus.OK,
+    };
   }
 
   async remove(id: number) {
@@ -130,6 +135,11 @@ export class LibrosService {
     if (!libro)
       throw new NotFoundException(`El libro #${id} no fue encontrado`);
 
-    return this.libroRepository.delete({ id });
+    this.libroRepository.delete({ id });
+
+    return {
+      message: `El libro #${id} ha sido eliminado exitosamente`,
+      statusCode: HttpStatus.OK,
+    };
   }
 }

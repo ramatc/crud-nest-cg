@@ -11,7 +11,9 @@ import {
 import { AutoresService } from '../services/autores.service';
 import { CreateAutorDto } from '../dto/create-autor.dto';
 import { UpdateAutorDto } from '../dto/update-autor.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('autores')
 @Controller('autores')
 export class AutoresController {
   constructor(private readonly autoresService: AutoresService) {}

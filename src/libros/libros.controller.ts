@@ -13,7 +13,9 @@ import { Query as ExpressQueery } from 'express-serve-static-core';
 import { LibrosService } from './libros.service';
 import { CreateLibroDto } from './dto/create-libro.dto';
 import { UpdateLibroDto } from './dto/update-libro.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('libros')
 @Controller('libros')
 export class LibrosController {
   constructor(private readonly libroService: LibrosService) {}

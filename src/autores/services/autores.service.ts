@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Autor } from '../../typeorm/entities/autor.entity';
@@ -37,7 +37,12 @@ export class AutoresService {
     if (!autor)
       throw new NotFoundException(`El autor #${id} no fue encontrado`);
 
-    return this.autorRepository.update({ id }, { ...updateAutorDto });
+    this.autorRepository.update({ id }, { ...updateAutorDto });
+
+    return {
+      message: `El autor #${id} ha sido actualizado exitosamente`,
+      statusCode: HttpStatus.OK,
+    };
   }
 
   async remove(id: number) {
@@ -46,6 +51,11 @@ export class AutoresService {
     if (!autor)
       throw new NotFoundException(`El autor #${id} no fue encontrado`);
 
-    return this.autorRepository.delete({ id });
+    this.autorRepository.delete({ id });
+
+    return {
+      message: `El autor #${id} ha sido eliminado exitosamente`,
+      statusCode: HttpStatus.OK,
+    };
   }
 }

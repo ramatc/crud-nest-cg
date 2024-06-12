@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Editorial } from 'src/typeorm/entities/editorial.entity';
@@ -37,7 +37,12 @@ export class EditorialesService {
     if (!editorial)
       throw new NotFoundException(`La editorial #${id} no fue encontrada`);
 
-    return this.editorialRepository.update({ id }, { ...updateEditorialDto });
+    this.editorialRepository.update({ id }, { ...updateEditorialDto });
+
+    return {
+      message: `La editorial #${id} ha sido actualizada exitosamente`,
+      statusCode: HttpStatus.OK,
+    };
   }
 
   async remove(id: number) {
@@ -46,6 +51,11 @@ export class EditorialesService {
     if (!editorial)
       throw new NotFoundException(`La editorial #${id} no fue encontrada`);
 
-    return this.editorialRepository.delete({ id });
+    this.editorialRepository.delete({ id });
+
+    return {
+      message: `La editorial #${id} ha sido eliminada exitosamente`,
+      statusCode: HttpStatus.OK,
+    };
   }
 }
